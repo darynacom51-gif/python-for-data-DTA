@@ -2,6 +2,8 @@ import numpy as np      # з масивами та числовими обчис
 import pandas as pd     # для роботи з таблицями та даними (DataFrame)
 import matplotlib.pyplot as plt  #pyplot для графіки (частина модулю matplotlib)
 import seaborn as sns   # для стильних статистичних графіків
+import ast
+
 
 url = "data/movies_metadata.csv"
 
@@ -40,10 +42,25 @@ df.dropna(inplace=True)
 
 #-------------------------------------------------------------------
 
+def extract_genres(genre_str):
+    try:
+        genres = ast.literal_eval(genre_str)
+        return[genre['name'] for genre in genres]
+    except ValueError:
+        return []
+#print(extract_genres(df['genres'].value_counts()))
+print(df['genres'].apply(extract_genres))
+df['genres'] = df['genres'].apply(extract_genres)
+#------------------------------------------------------------------
+
+
+
 #print(df.head())     #виводжу таблицю
 #print(df.genres)    #жанри
 
-genres_counts = df['genres'].value_counts() # порахувати скільки жанрів
+
+all_genres = df['genres'].explode()
+genres_counts = all_genres.value_counts() # порахувати скільки жанрів
 # print(genres_counts)
 
 # print(genres_counts.index)  # X
