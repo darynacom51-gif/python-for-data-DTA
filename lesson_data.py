@@ -26,7 +26,7 @@ print(df)
 # print(data['feb'])#як індекс
 
 
-# print(df.head(2))      #з початку рдки
+# print(df.head(2))      #з початку рядку
 # print(df.tail(1))      #з кінця
 
 # print(df.revenue)
